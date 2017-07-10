@@ -13,8 +13,8 @@
 CvFont font;
 IplImage *img = 0;
 double a, b;
-int p_x = 0;
-int p_y = 0;
+static int p_x = 0;
+static int p_y = 0;
 static int t_x = 0;
 static int t_y = 0;
 static int r = 0; /* 回転角 */
@@ -350,7 +350,7 @@ int main(int argc, char *argv[])
 
 
   //ランダムな配置
-  srand(time(NULL));
+  //srand(time(NULL));
   p_x = rand()%51;
   srand(time(NULL));
   p_y = rand()%51-25;
