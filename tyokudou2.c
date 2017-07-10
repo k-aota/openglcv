@@ -6,9 +6,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-//xyをトラックバーで指定して画面に数字で出すプログラム
-//サンプルのサイトからもらってきて改変
-
 /* グローバル変数 */
 CvFont font;
 IplImage *img = 0;
@@ -169,7 +166,6 @@ void display(void)
 
   /* 視点位置と視線方向 */
   gluLookAt(35.0, 50.0, 35.0, 25.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-//  gluLookAt(35.0, 90.0, 40.0, 25.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
   /* 光源の位置設定 */
     glLightfv(GL_LIGHT0, GL_POSITION, light0pos);
@@ -178,9 +174,7 @@ void display(void)
   /*モデルビュー変換行列の保存*/
   glPushMatrix();
   /* 図形の回転 */
-  //glRotated((double)r, 0.0, 1.0, 0.0);
   glTranslated((double)r, 0.0, (-1)*(double)r*(((double)t_y-25.0)/(double)t_x));
-  //glTranslated((double)r, 0.0, 0.0);
   /* 図形の色 (赤)  */
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, red);
   /* 図形の描画 */
@@ -193,16 +187,12 @@ void display(void)
   //printf("%d\t", t_y);
   //printf("%d\t", p_x);
   //printf("%d\n", p_y);
-  //glRotated((double)(2 * r), 0.0, 1.0, 0.0);
   glTranslated((double)r*(-1.0), 0.0, (double)r*(((double)t_y-25.0)/(double)t_x));
-  //glTranslated((double)r*(-1.0), 0.0, 0.0);
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, blue);
   cube();
   /* 三つ目の図形の描画 */
   glPushMatrix();
   glTranslated(p_x*(-1.0), 0.0, p_y-25.0);
-  //glTranslated((double)r*(-1.0), 0.0, 0.0);
-  //glRotated((double)(2 * r), 0.0, 1.0, 0.0);
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, white);
   cube0();
 
@@ -271,8 +261,6 @@ void keyboard(unsigned char key, int x, int y)
       cvNamedWindow("you", CV_WINDOW_AUTOSIZE);
       cvShowImage("you", img);
       cvWaitKey(0);
-      //cvDestroyWindow("youwin");
-      //cvReleaseImage(&img);
     }else{
     printf("You Lose...\n");
     //説明画面
@@ -282,11 +270,6 @@ void keyboard(unsigned char key, int x, int y)
     cvNamedWindow("you", CV_WINDOW_AUTOSIZE);
     cvShowImage("you", img);
     cvWaitKey(0);
-    //printf("%d\t", t_x);
-    //printf("%d\t", t_y);
-    //printf("%d\t", p_x);
-    //printf("%d\n", p_y);
-    //printf("%lf\n", (p_x-t_x)*(p_x-t_x)+(p_y-t_y-25.0)*(p_y-t_y-25.0));
     }
     while (1) {
       char c1 = cvWaitKey(2) & 0xff;
