@@ -316,7 +316,7 @@ int main(int argc, char *argv[])
 
   //説明画面
   IplImage* img;
-  char imgfile[] = "lena30.jpg";
+  char imgfile[] = "shooting.png";
   img = cvLoadImage(imgfile, CV_LOAD_IMAGE_ANYCOLOR|CV_LOAD_IMAGE_ANYDEPTH);
   cvNamedWindow("lena30", CV_WINDOW_AUTOSIZE);
   cvShowImage("lena30", img);
