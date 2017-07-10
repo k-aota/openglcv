@@ -262,9 +262,14 @@ void keyboard(unsigned char key, int x, int y)
   case 'q':
   case 'Q':
   case '\033':  /* '\033' は ESC の ASCII コード */
-    if(r-5<t_x&&r+5>t_x){
+    if((p_x-t_x)*(p_x-t_x)+(t_y-p_y-25.0)*(t_y-p_y-25.0)<=25){
       printf("You Win !!\n");
     }else{printf("You Lost !!\n");
+    printf("%d\t", t_x);
+    printf("%d\t", t_y);
+    printf("%d\t", p_x);
+    printf("%d\n", p_y);
+          printf("%lf\n", (p_x-t_x)*(p_x-t_x)+(p_y-t_y-25.0)*(p_y-t_y-25.0));
     }
     exit(0);//プログラムの終了
   default:
