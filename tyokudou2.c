@@ -264,13 +264,38 @@ void keyboard(unsigned char key, int x, int y)
   case '\033':  /* '\033' は ESC の ASCII コード */
     if((p_x-t_x)*(p_x-t_x)+(t_y-p_y-25.0)*(t_y-p_y-25.0)<=25){
       printf("You Win !!\n");
-    }else{printf("You Lost !!\n");
+      //説明画面
+      //IplImage* img1;
+      char imgfile[] = "youwin.png";
+      img = cvLoadImage(imgfile, CV_LOAD_IMAGE_ANYCOLOR|CV_LOAD_IMAGE_ANYDEPTH);
+      cvNamedWindow("you", CV_WINDOW_AUTOSIZE);
+      cvShowImage("you", img);
+      cvWaitKey(0);
+      //cvDestroyWindow("youwin");
+      //cvReleaseImage(&img);
+    }else{
+    printf("You Lose...\n");
+    //説明画面
+    /*IplImage* img2;
+    char imgfile2[] = "youlose.png";
+    img2 = cvLoadImage(imgfile2, CV_LOAD_IMAGE_ANYCOLOR|CV_LOAD_IMAGE_ANYDEPTH);
+    cvNamedWindow("youlose", CV_WINDOW_AUTOSIZE);
+    cvShowImage("youlose", img2);
+    cvWaitKey(0);
+    */
     printf("%d\t", t_x);
     printf("%d\t", t_y);
     printf("%d\t", p_x);
     printf("%d\n", p_y);
-          printf("%lf\n", (p_x-t_x)*(p_x-t_x)+(p_y-t_y-25.0)*(p_y-t_y-25.0));
+    printf("%lf\n", (p_x-t_x)*(p_x-t_x)+(p_y-t_y-25.0)*(p_y-t_y-25.0));
     }
+    while (1) {
+      char c1 = cvWaitKey(2) & 0xff;
+      if (c1 == '\x1b')//ESC
+        break;
+    }
+    cvDestroyWindow("you");
+    cvReleaseImage(&img);
     exit(0);//プログラムの終了
   default:
     break;
@@ -318,10 +343,10 @@ int main(int argc, char *argv[])
   IplImage* img;
   char imgfile[] = "shooting.png";
   img = cvLoadImage(imgfile, CV_LOAD_IMAGE_ANYCOLOR|CV_LOAD_IMAGE_ANYDEPTH);
-  cvNamedWindow("lena30", CV_WINDOW_AUTOSIZE);
-  cvShowImage("lena30", img);
+  cvNamedWindow("start", CV_WINDOW_AUTOSIZE);
+  cvShowImage("start", img);
   cvWaitKey(0);
-  cvDestroyWindow("lena30");
+  cvDestroyWindow("start");
   cvReleaseImage(&img);
 
 
@@ -375,7 +400,7 @@ int main(int argc, char *argv[])
   glutInitWindowSize(600, 600);
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
-  glutCreateWindow(argv[0]);
+  glutCreateWindow(argv[1]);
   glutDisplayFunc(display);
   glutReshapeFunc(resize);
   glutMouseFunc(mouse);
