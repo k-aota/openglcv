@@ -179,7 +179,7 @@ void display(void)
   glPushMatrix();
   /* 図形の回転 */
   //glRotated((double)r, 0.0, 1.0, 0.0);
-  glTranslated((double)r, 0.0, (-1)*(double)r*((double)t_y/(double)t_x));
+  glTranslated((double)r, 0.0, (-1)*(double)r*((double)t_y-25.0/(double)t_x));
   //glTranslated((double)r, 0.0, 0.0);
   /* 図形の色 (赤)  */
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, red);
@@ -194,7 +194,7 @@ void display(void)
   printf("%d\t", p_x);
   printf("%d\n", p_y);
   //glRotated((double)(2 * r), 0.0, 1.0, 0.0);
-  glTranslated((double)r*(-1.0), 0.0, (double)r*((double)t_y/(double)t_x));
+  glTranslated((double)r*(-1.0), 0.0, (double)r*((double)t_y-25.0/(double)t_x));
   //glTranslated((double)r*(-1.0), 0.0, 0.0);
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, blue);
   cube();
@@ -262,19 +262,24 @@ void keyboard(unsigned char key, int x, int y)
   case 'q':
   case 'Q':
   case '\033':  /* '\033' は ESC の ASCII コード */
+    if(r-5<t_x&&r+5>t_x){
+      printf("You Win !!\n");
+    }else{printf("You Lost !!\n");
+    }
     exit(0);//プログラムの終了
   default:
     break;
   }
 }
 
-/*void finish(int r, int t_x)
+void finish(int r, int t_x)
 {
   if(r-5<t_x&&r+5>t_x){
     printf("You Win !!\n");
-    exit(0);
+    //exit(0);
+    glutLeaveMainLoop();
   }
-}*/
+}
 
 /* ARGSUSED1 */
 void keyboard2(unsigned char key, int x, int y)
