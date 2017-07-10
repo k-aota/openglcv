@@ -1,0 +1,29 @@
+#MAKEFILE
+#opengl
+
+CC	= gcc
+RM	= rm -f
+
+CFLAGS	= -Wall	
+LDFLAGS	= -lglut -lGLU -lGL -lm
+
+TARGET	= main-kadai
+OBJS	= main-kadai.o
+
+.c.o:
+	${CC} -c ${CFLAGS} $<
+
+TARGET: ${OBJS}
+	${CC} -o ${TARGET} ${OBJS} ${LDFLAGS}
+
+clean:
+	${RM} ${TARGET} *.o *~
+
+
+#opencv
+all: main-kadai
+
+main-kadai: main-kadai.c
+	gcc -o main-kadai main-kadai.c `pkg-config opencv --cflags` `pkg-config opencv --libs
+
+
