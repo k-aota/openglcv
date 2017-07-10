@@ -240,10 +240,10 @@ void mouse(int button, int state, int x, int y)
       /* アニメーション開始 */
       glutIdleFunc(idle);
     }
-    else {
-      /* アニメーション停止 */
-      glutIdleFunc(0);
-    }
+      break;
+  case GLUT_MIDDLE_BUTTON:
+    if (state == GLUT_DOWN)
+      glutIdleFunc(NULL);
     break;
   case GLUT_RIGHT_BUTTON:
     if (state == GLUT_DOWN) {
