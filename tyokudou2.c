@@ -276,13 +276,12 @@ void keyboard(unsigned char key, int x, int y)
     }else{
     printf("You Lose...\n");
     //説明画面
-    /*IplImage* img2;
+    //IplImage* img2;
     char imgfile2[] = "youlose.png";
-    img2 = cvLoadImage(imgfile2, CV_LOAD_IMAGE_ANYCOLOR|CV_LOAD_IMAGE_ANYDEPTH);
-    cvNamedWindow("youlose", CV_WINDOW_AUTOSIZE);
-    cvShowImage("youlose", img2);
+    img = cvLoadImage(imgfile2, CV_LOAD_IMAGE_ANYCOLOR|CV_LOAD_IMAGE_ANYDEPTH);
+    cvNamedWindow("you", CV_WINDOW_AUTOSIZE);
+    cvShowImage("you", img);
     cvWaitKey(0);
-    */
     printf("%d\t", t_x);
     printf("%d\t", t_y);
     printf("%d\t", p_x);
