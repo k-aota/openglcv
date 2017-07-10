@@ -314,10 +314,17 @@ int main(int argc, char *argv[])
 {
   unsigned char c;
 
-  //アスキーアート？(そんなことするならなんか画像表示)
-  printf("AAAAA\n");
-  printf("  A  \n");
-  printf("AAAAA\n");
+  //説明画面
+  IplImage* img;
+  char imgfile[] = "lena30.jpg";
+  img = cvLoadImage(imgfile, CV_LOAD_IMAGE_ANYCOLOR|CV_LOAD_IMAGE_ANYDEPTH);
+  cvNamedWindow("lena30", CV_WINDOW_AUTOSIZE);
+  cvShowImage("lena30", img);
+  cvWaitKey(0);
+  cvDestroyWindow("lena30");
+  cvReleaseImage(&img);
+
+
   //ランダムな配置
   srand(time(NULL));
   p_x = rand()%51;
@@ -341,7 +348,7 @@ int main(int argc, char *argv[])
   //以下トラックバー
   //unsigned char c;
   // (1)画像領域を確保し，初期化する
-  img = cvCreateImage (cvSize (400, 200), IPL_DEPTH_8U, 3);
+  img = cvCreateImage (cvSize (400, 1), IPL_DEPTH_8U, 3);
   cvZero (img);
   cvInitFont (&font, CV_FONT_HERSHEY_DUPLEX, 1.0, 1.0,0,1.0,8.0);
   // (2)ウィンドウ，およびトラックバーを作成する
@@ -391,7 +398,7 @@ on_trackbar1 (int val)
   // (4)トラックバー1の値を描画する
   cvRectangle (img, cvPoint (0, 0), cvPoint (400, 50), cvScalar (0,0,0,0), CV_FILLED,8,0);
   snprintf (str, 64, "%d", val);
-  cvPutText (img, str, cvPoint (15, 30), &font, CV_RGB (0, 200, 100));
+  //cvPutText (img, str, cvPoint (15, 30), &font, CV_RGB (0, 200, 100));
   cvShowImage ("Image", img);
 }
 
@@ -404,9 +411,9 @@ on_trackbar2 (int val)
   b=(double)cvGetTrackbarPos("Trackbar_y","Image");
 
   // (4)トラックバー2の値を描画する
-  cvRectangle (img, cvPoint (0, 50), cvPoint (400, 100), cvScalar (0,0,0,0), CV_FILLED,8,0);
+  cvRectangle (img, cvPoint (0, 50), cvPoint (400, 100), cvScalar (0,0,0,0), CV_FILLED,8,0);//400,100
   snprintf (str, 64, "%d", val);
-  cvPutText (img, str, cvPoint (15, 80), &font, CV_RGB (200, 200, 0));
+  //cvPutText (img, str, cvPoint (15, 80), &font, CV_RGB (200, 200, 0));
   cvShowImage ("Image", img);
 
 }
