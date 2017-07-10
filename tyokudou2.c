@@ -20,8 +20,8 @@ static int r = 0; /* 回転角 */
 void on_trackbar1 (int val);
 void on_trackbar2 (int val);
 
-
-//prog2
+//光源を設置した環境下の物体を表示するプログラム
+//立方体の頂点
 GLdouble vertex[][3] = {
   { 0.0, 0.0, 0.0 },
   { 3.0, 0.0, 0.0 },
@@ -32,7 +32,7 @@ GLdouble vertex[][3] = {
   { 3.0, 3.0, 3.0 },
   { 0.0, 3.0, 3.0 }
 };
-
+//盤面の頂点
 GLdouble vertex0[][3] = {
   {  0.0, 0.0, 0.0 },
   { 50.0, 0.0, 0.0 },
@@ -44,6 +44,7 @@ GLdouble vertex0[][3] = {
   {  0.0, 1.0, 50.0 }
 };
 
+//盤面の辺
 int edge0[][2] = {
   { 0, 1 },
   { 1, 2 },
@@ -59,6 +60,7 @@ int edge0[][2] = {
   { 3, 7 }
 };
 
+//立方体の面
 int face[][4] = {
   { 0, 1, 2, 3 },
   { 1, 5, 6, 2 },
@@ -67,6 +69,7 @@ int face[][4] = {
   { 4, 5, 1, 0 },
   { 3, 2, 6, 7 }
 };
+
 
 GLdouble normal[][3] = {
   { 0.0, 0.0,-1.0 },
@@ -86,6 +89,7 @@ GLfloat red[] = { 0.0, 0.2, 0.2, 1.0 };
 GLfloat blue[] = {0.2, 0.2, 0.8, 1.0};
 GLfloat white[] = {0.8, 1.0, 0.8, 1.0};
 
+//立方体
 void cube(void)
 {
   int i;
@@ -100,6 +104,7 @@ void cube(void)
   }
   glEnd();
 }
+//盤面
 void cube0(void)
 {
   int i;
@@ -117,6 +122,7 @@ void idle(void)
 {
   glutPostRedisplay();
 }
+//最初のオブジェクト位置を示す画面
 void display0(void)
 {
   int i;
@@ -135,14 +141,14 @@ void display0(void)
     glLightfv(GL_LIGHT0, GL_POSITION, light0pos);
     glLightfv(GL_LIGHT1, GL_POSITION, light1pos);
 
-  /* 二つ目の図形の描画 */
+  /* オブジェクトの描画 */
   glPushMatrix();
   glTranslated(p_x, 0.0, p_y*(-1));
   //printf("%d\t", p_x);
   //printf("%d\n", p_y);
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, blue);
   cube();
-  /* 三つ目の図形の描画 */
+  /* 盤面の描画 */
   glPushMatrix();
   glTranslated(p_x*(-1.0), 0.0, p_y-25.0);
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, white);
@@ -154,6 +160,7 @@ void display0(void)
   /* 一周回ったら回転角を 0 に戻す */
   if (++r >= 50) r = 0;
 }
+//攻撃時の画面
 void display(void)
 {
   int i;
@@ -171,6 +178,7 @@ void display(void)
     glLightfv(GL_LIGHT0, GL_POSITION, light0pos);
     glLightfv(GL_LIGHT1, GL_POSITION, light1pos);
 
+  //攻撃オブジェクト
   /*モデルビュー変換行列の保存*/
   glPushMatrix();
   /* 図形の回転 */
@@ -180,7 +188,7 @@ void display(void)
   /* 図形の描画 */
   cube();
 
-  /* 二つ目の図形の描画 */
+  /* オブジェクトの描画 */
   glPushMatrix();
   glTranslated(p_x, 0.0, p_y*(-1));
   //printf("%d\t", t_x);
@@ -190,7 +198,7 @@ void display(void)
   glTranslated((double)r*(-1.0), 0.0, (double)r*(((double)t_y-25.0)/(double)t_x));
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, blue);
   cube();
-  /* 三つ目の図形の描画 */
+  /* 盤面の描画 */
   glPushMatrix();
   glTranslated(p_x*(-1.0), 0.0, p_y-25.0);
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, white);
@@ -203,7 +211,7 @@ void display(void)
 
   glutSwapBuffers();
 
-  /* 一周回ったら回転角を 0 に戻す */
+  /* 一周回ったら移動x座標を 0 に戻す */
   if (++r >= 50) r = 0;
 }
 
@@ -252,25 +260,27 @@ void keyboard(unsigned char key, int x, int y)
   case 'q':
   case 'Q':
   case '\033':  /* '\033' は ESC の ASCII コード */
+    //勝敗判定
     if((p_x-t_x)*(p_x-t_x)+(t_y-p_y-25.0)*(t_y-p_y-25.0)<=25){
       printf("You Win !!\n");
-      //説明画面
       //IplImage* img1;
       char imgfile[] = "youwin.png";
+      //勝利画面の表示
       img = cvLoadImage(imgfile, CV_LOAD_IMAGE_ANYCOLOR|CV_LOAD_IMAGE_ANYDEPTH);
       cvNamedWindow("you", CV_WINDOW_AUTOSIZE);
       cvShowImage("you", img);
       cvWaitKey(0);
     }else{
     printf("You Lose...\n");
-    //説明画面
     //IplImage* img2;
     char imgfile2[] = "youlose.png";
+    //敗北画面の表示
     img = cvLoadImage(imgfile2, CV_LOAD_IMAGE_ANYCOLOR|CV_LOAD_IMAGE_ANYDEPTH);
     cvNamedWindow("you", CV_WINDOW_AUTOSIZE);
     cvShowImage("you", img);
     cvWaitKey(0);
     }
+    //ESCを待って表示終了
     while (1) {
       char c1 = cvWaitKey(2) & 0xff;
       if (c1 == '\x1b')//ESC
@@ -284,6 +294,7 @@ void keyboard(unsigned char key, int x, int y)
   }
 }
 
+//スタート画面から抜ける
 /* ARGSUSED1 */
 void keyboard2(unsigned char key, int x, int y)
 {
@@ -308,11 +319,12 @@ void init(void)
   glLightfv(GL_LIGHT1, GL_SPECULAR, green);
 }
 
+//メイン関数
 int main(int argc, char *argv[])
 {
   unsigned char c;
 
-  //説明画面
+  //スタート画面
   IplImage* img;
   char imgfile[] = "shooting.png";
   img = cvLoadImage(imgfile, CV_LOAD_IMAGE_ANYCOLOR|CV_LOAD_IMAGE_ANYDEPTH);
@@ -323,13 +335,13 @@ int main(int argc, char *argv[])
   cvReleaseImage(&img);
 
 
-  //ランダムな配置
+  //オブジェクトのランダムな配置
   //srand(time(NULL));
   p_x = rand()%51;
   srand(time(NULL));
   p_y = rand()%51-25;
 
-  //ターゲットの表示
+  //ターゲットオブジェクトの表示
   glutInitWindowPosition(1000, 100);
   glutInitWindowSize(600, 600);
   glutInit(&argc, argv);
@@ -356,7 +368,7 @@ int main(int argc, char *argv[])
   cvShowImage ("Image", img);
   cvWaitKey (0);
 
-  //トラックバーの値はメモっておいて、トラックバー終了する
+  //トラックバーの値を記録し、トラックバー終了する
   while (1) {
     c = cvWaitKey(2) & 0xff;
     t_x = cvGetTrackbarPos("Trackbar_x", "Image");
