@@ -141,8 +141,8 @@ void display0(void)
   /* 二つ目の図形の描画 */
   glPushMatrix();
   glTranslated(p_x, 0.0, p_y*(-1));
-  printf("%d\t", p_x);
-  printf("%d\n", p_y);
+  //printf("%d\t", p_x);
+  //printf("%d\n", p_y);
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, blue);
   cube();
   /* 三つ目の図形の描画 */
@@ -189,10 +189,10 @@ void display(void)
   /* 二つ目の図形の描画 */
   glPushMatrix();
   glTranslated(p_x, 0.0, p_y*(-1));
-  printf("%d\t", t_x);
-  printf("%d\t", t_y);
-  printf("%d\t", p_x);
-  printf("%d\n", p_y);
+  //printf("%d\t", t_x);
+  //printf("%d\t", t_y);
+  //printf("%d\t", p_x);
+  //printf("%d\n", p_y);
   //glRotated((double)(2 * r), 0.0, 1.0, 0.0);
   glTranslated((double)r*(-1.0), 0.0, (double)r*(((double)t_y-25.0)/(double)t_x));
   //glTranslated((double)r*(-1.0), 0.0, 0.0);
@@ -282,11 +282,11 @@ void keyboard(unsigned char key, int x, int y)
     cvNamedWindow("you", CV_WINDOW_AUTOSIZE);
     cvShowImage("you", img);
     cvWaitKey(0);
-    printf("%d\t", t_x);
-    printf("%d\t", t_y);
-    printf("%d\t", p_x);
-    printf("%d\n", p_y);
-    printf("%lf\n", (p_x-t_x)*(p_x-t_x)+(p_y-t_y-25.0)*(p_y-t_y-25.0));
+    //printf("%d\t", t_x);
+    //printf("%d\t", t_y);
+    //printf("%d\t", p_x);
+    //printf("%d\n", p_y);
+    //printf("%lf\n", (p_x-t_x)*(p_x-t_x)+(p_y-t_y-25.0)*(p_y-t_y-25.0));
     }
     while (1) {
       char c1 = cvWaitKey(2) & 0xff;
@@ -298,15 +298,6 @@ void keyboard(unsigned char key, int x, int y)
     exit(0);//プログラムの終了
   default:
     break;
-  }
-}
-
-void finish(int r, int t_x)
-{
-  if(r-5<t_x&&r+5>t_x){
-    printf("You Win !!\n");
-    //exit(0);
-    glutLeaveMainLoop();
   }
 }
 
@@ -404,7 +395,6 @@ int main(int argc, char *argv[])
   glutReshapeFunc(resize);
   glutMouseFunc(mouse);
   glutKeyboardFunc(keyboard);
-  //finish(r, t_x);
   init();
   glutMainLoop();
   return 0;
@@ -417,7 +407,6 @@ on_trackbar1 (int val)
 {
   char str[64];
   a=(double)cvGetTrackbarPos("Trackbar_x","Image");
-  //a=(double)cvGetTrackbarPos("Trackbar_y","Image");
 
   // (4)トラックバー1の値を描画する
   cvRectangle (img, cvPoint (0, 0), cvPoint (400, 50), cvScalar (0,0,0,0), CV_FILLED,8,0);
@@ -431,7 +420,6 @@ on_trackbar2 (int val)
 {
   char str[64];
   int pos1, pos2;
-  //a=(double)cvGetTrackbarPos("Trackbar_x","Image");
   b=(double)cvGetTrackbarPos("Trackbar_y","Image");
 
   // (4)トラックバー2の値を描画する
