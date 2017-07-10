@@ -131,7 +131,7 @@ void display0(void)
   glLoadIdentity();
 
   /* 視点位置と視線方向 */
-  gluLookAt(35.0, 90.0, 15.0, 25.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+  gluLookAt(35.0, 70.0, 25.0, 25.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 //  gluLookAt(35.0, 90.0, 40.0, 25.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
   /* 光源の位置設定 */
@@ -168,7 +168,7 @@ void display(void)
   glLoadIdentity();
 
   /* 視点位置と視線方向 */
-  gluLookAt(35.0, 90.0, 15.0, 25.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+  gluLookAt(35.0, 50.0, 35.0, 25.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 //  gluLookAt(35.0, 90.0, 40.0, 25.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
   /* 光源の位置設定 */
@@ -224,7 +224,7 @@ void resize(int w, int h)
   /* 透視変換行列の設定 */
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(45.0, (double)w / (double)h, 1.0, 100.0);//視野角
+  gluPerspective(55.0, (double)w / (double)h, 1.0, 100.0);//視野角
 
   /* モデルビュー変換行列の設定 */
   glMatrixMode(GL_MODELVIEW);
