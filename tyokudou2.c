@@ -212,7 +212,7 @@ void display(void)
   glutSwapBuffers();
 
   /* 一周回ったら移動x座標を 0 に戻す */
-  if (++r >= 50) r = 0;
+  if (++r >= t_x) r = 0;
 }
 
 void resize(int w, int h)
