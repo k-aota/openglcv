@@ -127,7 +127,7 @@ void display0(void)
 {
   int i;
   int j;
-  //static int r = 0; /* 回転角 */
+  //static int r = 0; 
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -157,15 +157,14 @@ void display0(void)
   /*モデルビュー変換行列の復帰*/
   glPopMatrix();
   glutSwapBuffers();
-  /* 一周回ったら回転角を 0 に戻す */
-  if (++r >= 50) r = 0;
+
 }
 //攻撃時の画面
 void display(void)
 {
   int i;
   int j;
-  static int r = 0; /* 回転角 */
+  static int r = 0;
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
